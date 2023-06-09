@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
+use App\Models\Customer;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+// Display All Customers
+Route::get('/customers', [CustomerController::class, 'index'])->middleware(['auth'])->name('all-customers');
+
+// Create New Customer
+Route::get('/customers/create', [CustomerController::class, 'create'])->middleware('auth')->name('create-customer');
+Route::post('/customers/store', [CustomerController::class, 'store'])->middleware('auth')->name('store-customer');
+
+// Update Data Customer
+Route::get('/customers/edit/{customer_id}', [CustomerController::class, 'edit'])->middleware('auth')->name('edit-customer');  
+Route::patch('/customers/update/{customer_id}', [CustomerController::class, 'update'])->middleware('auth')->name('update-customer');  
+
+// Delete(SoftDelete) Data Customer
+Route::delete('/customers/delete/{customer:id}', [CustomerController::class, 'delete'])->middleware('auth')->name('delete-customer');
+
+require __DIR__.'/auth.php';
