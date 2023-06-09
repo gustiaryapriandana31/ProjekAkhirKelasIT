@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
+use App\Models\Customer;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +16,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+// Display All Customers
+Route::get('/customers', CustomerController::class, 'index')->name('create-customer');
+
+// Create New Customer
+// Route::get('create-customer', CustomerFactory::class, 'index')->name('create-customer');
+// Route::post('-customer', CustomerFactory::class, 'index')->name('create-customer');
+
+require __DIR__.'/auth.php';
