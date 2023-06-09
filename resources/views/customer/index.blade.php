@@ -2,7 +2,7 @@
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">My Posts</h1>
+    <h1 class="h2">Data Customer</h1>
 </div>    
 
 @if (session()->has('success'))
@@ -12,7 +12,7 @@
 @endif
 
 <div class="table-responsive col-lg-9">
-    <a href="/dashboard/posts/create" class="btn btn-primary mb-3">Tambah Customer Baru</a>
+    <a href="{{ route('create-customer') }}" class="btn btn-primary mb-3">Tambah Customer Baru</a>
 
     <table class="table table-striped table-sm">
       <thead>
@@ -29,18 +29,20 @@
         @foreach ($customers as $customer)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $customer->nama }}</td>
+                <td>{{ $customer->nama_customer }}</td>
                 <td>{{ $customer->jenis_kelamin }}</td>
-                <td> Action Nantinya
+                <td>{{ $customer->no_telp }}</td>
+                <td>{{ $customer->alamat }}</td>
+                <td>
                   {{-- <a href="/dashboard/posts/{{ $customer->slug }}" class="badge bg-primary"><span data-feather="eye" ></span></a> --}}
 
-                  {{-- <a href="/dashboard/posts/{{ $customer->slug }}/edit" class="badge bg-warning"><span data-feather="edit" ></span></a> --}}
+                  <a href="{{ route('edit-customer', ['customer_id'=>$customer->id]) }}" class="badge bg-warning"><span data-feather="edit"></span>Update</a>
 
-                  {{-- <form action="/dashboard/posts/{{ $customer->slug }}" method="post" class="d-inline">
+                  <form action={{ route('delete-customer', [$customer->id]) }}"  method="post" class="d-inline">
                     @method('delete')
                     @csrf
-                    <button class="badge bg-danger border-0" onclick="return confirm('Are your sure?')"><span data-feather="x-circle" ></span></button>
-                  </form> --}}
+                    <button class="badge bg-danger border-0" onclick="return confirm('Apakah kamu yakin mau menghapus data ini???')"><span data-feather="x-circle" ></span>Delete</button>
+                  </form>
                 </td>
             </tr>
         @endforeach

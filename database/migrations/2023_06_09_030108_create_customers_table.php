@@ -17,7 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('nama_customer');
             $table->string('no_telp');
-            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->string('jenis_kelamin');
             $table->text('alamat');
             $table->timestamps();
             $table->softDeletes();

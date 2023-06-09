@@ -24,10 +24,17 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 // Display All Customers
-Route::get('/customers', CustomerController::class, 'index')->name('create-customer');
+Route::get('/customers', [CustomerController::class, 'index'])->middleware(['auth'])->name('all-customers');
 
 // Create New Customer
-// Route::get('create-customer', CustomerFactory::class, 'index')->name('create-customer');
-// Route::post('-customer', CustomerFactory::class, 'index')->name('create-customer');
+Route::get('/customers/create', [CustomerController::class, 'create'])->middleware('auth')->name('create-customer');
+Route::post('/customers/store', [CustomerController::class, 'store'])->middleware('auth')->name('store-customer');
+
+// Update Data Customer
+Route::get('/customers/edit/{customer_id}', [CustomerController::class, 'edit'])->middleware('auth')->name('edit-customer');  
+Route::patch('/customers/update/{customer_id}', [CustomerController::class, 'update'])->middleware('auth')->name('update-customer');  
+
+// Delete(SoftDelete) Data Customer
+Route::delete('/customers/delete/{customer:id}', [CustomerController::class, 'delete'])->middleware('auth')->name('delete-customer');
 
 require __DIR__.'/auth.php';
