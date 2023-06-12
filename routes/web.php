@@ -16,7 +16,7 @@ use App\Models\Customer;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('service.wash');
 });
 
 Route::get('/dashboard', function () {
