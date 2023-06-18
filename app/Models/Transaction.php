@@ -2,24 +2,21 @@
 
 namespace App\Models;
 
-use App\Models\Transaction;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Customer extends Model
+class Transaction extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
- 
-    protected $fillable = ['id_customer', 'nama_customer', 'no_telp', 'jenis_kelamin', 'alamat'];
-
-    protected $primaryKey = 'id_customer';
+    protected $primaryKey = 'id_trx';
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function transactions() {
-        return $this->hasMany(Transaction::class);
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 }
