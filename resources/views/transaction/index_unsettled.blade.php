@@ -11,10 +11,10 @@
         {{ session('success') }}
       </div>
   @endif
-
-  <a href="{{ route('all-transactions-unsettled') }}" class="btn btn-warning mb-3">See Unsettled Transactions</a>
-
+  
   <div class="table-responsive col-lg-9">
+      {{-- <a href="{{ route('create-transaction') }}" class="btn btn-primary mb-3">Tambah Transaksi Baru</a> --}}
+  
       <table class="table table-striped table-sm">
         <thead>
           <tr>
@@ -44,7 +44,7 @@
                   <td>{{ $transaction->tanggal_keluar }}</td>
                   <td>{{ $transaction->status }}</td>
                   <td>
-                    <a href="{{ route('show-transaction', [$transaction->id_trx]) }}" class="badge bg-info"><span data-feather="eye" ></span>Detail</a>
+                    <a href="{{ route('show-transaction', [$transaction->id_trx]) }}" class="badge bg-success"><span data-feather="eye" ></span>Detail</a>
   
                     <a href="{{ route('edit-transaction', [$transaction->id_trx]) }}" class="badge bg-warning"><span data-feather="edit"></span>Update</a>
   

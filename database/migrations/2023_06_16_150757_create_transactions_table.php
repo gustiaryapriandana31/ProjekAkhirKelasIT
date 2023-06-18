@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->string('id_trx', 50)->primary();
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade')->onUpdate('cascade');  
+            $table->string('customer_id', 30); 
             $table->string('jenis_barang');
             $table->integer('berat');
             $table->string('harga');
@@ -25,6 +25,8 @@ class CreateTransactionsTable extends Migration
             $table->string('status');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('customer_id')->references('id_customer')->on('customers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
